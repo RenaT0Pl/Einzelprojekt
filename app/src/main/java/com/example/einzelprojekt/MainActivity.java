@@ -37,6 +37,13 @@ public class MainActivity extends AppCompatActivity {
         editTextNumber = findViewById(R.id.editTextNumber);
         textView2 = findViewById(R.id.textView2);
         button = findViewById(R.id.button);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String matrikelnummer = String.valueOf(editTextNumber.getText());
+                TCPConnection(matrikelnummer);
+            }
+        });
     }
     public void TCPConnection(String... params) {
         new Thread(new Runnable() {
