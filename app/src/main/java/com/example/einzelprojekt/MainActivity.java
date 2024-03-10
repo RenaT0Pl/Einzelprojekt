@@ -1,6 +1,7 @@
 package com.example.einzelprojekt;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -11,12 +12,18 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.Socket;
 
 
 public class MainActivity extends AppCompatActivity {
     private EditText editTextNumber;
     private TextView textView2;
     private Button button;
+    String result = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,5 +37,40 @@ public class MainActivity extends AppCompatActivity {
         editTextNumber = findViewById(R.id.editTextNumber);
         textView2 = findViewById(R.id.textView2);
         button = findViewById(R.id.button);
+    }
+    public void TCPConnection(String... params) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    // Server-Daten
+                    String serverAddress = "se2-submission.aau.at";
+                    int serverPort = 20080;
+
+                    // Socket erstellen
+                    Socket socket = new Socket(serverAddress, serverPort);
+                    DataOutputStream dos = new DataOutputStream(socket.getOutputStream());
+                    BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+
+                    // Matrikelnummer senden
+                    dos.writeBytes(params[0] + "\n");
+                    dos.flush(); //warten
+
+                    // Antwort vom Server empfangen
+                    result = br.readLine();
+
+                    // Socket schließen
+                    socket.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        textView2.setText(result);
+                    }
+                });
+            }
+        }).start();
     }
 }
