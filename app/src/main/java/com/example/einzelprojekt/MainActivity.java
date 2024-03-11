@@ -46,6 +46,23 @@ public class MainActivity extends AppCompatActivity {
                 TCPConnection(matrikelnummer);
             }
         });
+        button2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String zahl = String.valueOf(editTextNumber.getText());
+                int res = 0, loop = 0;
+                for(int i = zahl.length()-1; i>=0; i--){
+                    if(loop % 2 == 0){
+                        res += Character.getNumericValue(zahl.charAt(loop));
+                    }
+                    else{
+                        res -= Character.getNumericValue(zahl.charAt(loop));
+                    }
+                    loop++;
+                }
+                textView2.setText(String.valueOf(res));
+            }
+        });
     }
     public void TCPConnection(String... params) {
         new Thread(new Runnable() {
