@@ -22,7 +22,7 @@ import java.net.Socket;
 public class MainActivity extends AppCompatActivity {
     private EditText editTextNumber;
     private TextView textView2;
-    private Button button;
+    private Button button, button2;
     String result = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +37,8 @@ public class MainActivity extends AppCompatActivity {
         editTextNumber = findViewById(R.id.editTextNumber);
         textView2 = findViewById(R.id.textView2);
         button = findViewById(R.id.button);
+        button2 = findViewById(R.id.button2);
+        button2.setVisibility(View.INVISIBLE);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -74,6 +76,12 @@ public class MainActivity extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+                        if(!result.equals("Dies ist keine gueltige Matrikelnummer") && !result.equals("Antwort vom Server")){
+                            button2.setVisibility(View.VISIBLE);
+                        }
+                        else{
+                            button2.setVisibility(View.INVISIBLE);
+                        }
                         textView2.setText(result);
                     }
                 });
