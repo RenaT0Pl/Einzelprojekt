@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText editTextNumber;
     private TextView textView2;
     private Button button, button2;
-    String result = "";
+    String result = "", art = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,7 +60,13 @@ public class MainActivity extends AppCompatActivity {
                     }
                     loop++;
                 }
-                textView2.setText(String.valueOf(res));
+                if(res % 2 == 0){
+                        art = "gerade";
+                    }
+                else {
+                    art = "ungerade";
+                }
+                textView2.setText("Erg: " + res +"\nArt: " + art);
             }
         });
     }
