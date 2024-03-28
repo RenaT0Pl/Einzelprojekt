@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        //Test
         editTextNumber = findViewById(R.id.editTextNumber);
         textView2 = findViewById(R.id.textView2);
         button = findViewById(R.id.button);
